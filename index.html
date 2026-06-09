@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Complete Exam Suite | Maths + LaTeX + 3 Generators</title>
+    <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1976d2">
+    <script>
+        window.MathJax = {
+            tex: {
+                packages: ['base', 'ams', 'mhchem', 'textmacros'],
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                extensions: ['color.js', 'bbox.js']
+            },
+            options: { ignoreHtmlClass: 'no-mathjax' }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Great+Vibes&family=Satisfy&family=Pacifico&family=Indie+Flower&family=Patrick+Hand&family=Coming+Soon&family=Shadows+Into+Light&family=Kalam:wght@300;400;700&family=Rock+Salt&family=Gloria+Hallelujah&family=Bad+Script&family=La+Belle+Aurore&family=Reenie+Beanie&family=Covered+By+Your+Grace&family=Handlee&family=Neucha&family=Nanum+Pen+Script&family=M+PLUS+Rounded+1c&family=Amatic+SC&family=Architects+Daughter&family=Courier+Prime&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1300px; margin: 0 auto; }
+        .login-card { background: white; max-width: 380px; margin: 100px auto; padding: 40px; border-radius: 24px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .login-card input { width: 100%; padding: 12px; margin: 15px 0; border: 1px solid #ddd; border-radius: 12px; font-size: 16px; }
+        .login-card button { background: #667eea; color: white; padding: 12px; border: none; border-radius: 12px; font-size: 16px; cursor: pointer; width: 100%; }
+        .card { background: white; border-radius: 24px; padding: 24px; margin-bottom: 24px; }
+        .card-header { font-size: 1.4rem; font-weight: 700; border-left: 5px solid #667eea; padding-left: 16px; margin-bottom: 20px; display: flex; justify-content: space-between; flex-wrap: wrap; align-items: center; gap: 12px; }
+        button { background: #667eea; border: none; color: white; padding: 8px 18px; border-radius: 40px; cursor: pointer; margin: 4px; font-weight: 600; transition: 0.2s; }
+        button:hover { background: #5a67d8; transform: translateY(-2px); }
+        .btn-danger { background: #e53e3e; }
+        .btn-danger:hover { background: #c53030; }
+        .btn-success { background: #48bb78; }
+        .btn-success:hover { background: #38a169; }
+        .btn-warning { background: #ed8936; }
+        .btn-warning:hover { background: #dd6b20; }
+        input, textarea, select { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ddd; border-radius: 12px; }
+        .question-item { background: #f8f9fa; padding: 12px; margin: 8px 0; border-radius: 12px; border-left: 4px solid #667eea; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+        .link-box { background: #f0f4f8; padding: 12px; border-radius: 12px; margin-top: 12px; word-break: break-all; }
+        .share-buttons { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+        .warning { background: #fefcbf; padding: 10px; border-radius: 12px; margin: 10px 0; }
+        .exam-detail-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 14px; }
+        .exam-detail-row label { width: 100px; font-weight: 600; }
+        .exam-detail-row input, .exam-detail-row textarea, .exam-detail-row select { flex: 1; margin: 0; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center; }
+        .tab { background: #2d2d44; color: white; border: none; padding: 12px 28px; border-radius: 40px; cursor: pointer; font-weight: 600; }
+        .tab.active { background: #667eea; }
+        .generator-panel { display: none; }
+        .generator-panel.active-panel { display: block; }
+        .marks-badge { background: #e2e8f0; padding: 2px 8px; border-radius: 20px; font-size: 0.7rem; margin-left: 8px; }
+        .font-preview { display: inline-block; margin-left: 10px; font-size: 0.8rem; opacity: 0.7; }
+        .csc-header { background: linear-gradient(135deg, #1a237e 0%, #0d1b6e 100%); border-radius: 20px 20px 0 0; padding: 20px 28px; color: white; }
+        .csc-header-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 15px; }
+        .csc-logo { display: flex; align-items: center; gap: 12px; }
+        .csc-logo-icon { font-size: 2rem; }
+        .csc-logo-text h2 { font-size: 1.2rem; font-weight: 600; }
+        .csc-logo-text p { font-size: 0.7rem; opacity: 0.8; }
+        .csc-title { text-align: center; flex: 1; }
+        .csc-title h1 { font-size: 1.4rem; font-weight: 700; letter-spacing: 2px; }
+        .csc-editable { background: rgba(255,255,255,0.15); border-radius: 12px; padding: 8px 12px; margin-top: 15px; display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
+        .csc-editable input { background: rgba(255,255,255,0.9); border: none; border-radius: 8px; padding: 6px 12px; width: auto; min-width: 120px; }
+        .editable-field label { color: #ffd700; margin-right: 5px; }
+        .admin-bar { display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .math-preview { background: #e8f0fe; padding: 15px; border-radius: 12px; margin: 10px 0; text-align: center; }
+        @media (max-width: 700px) { .grid-2 { grid-template-columns: 1fr; } .exam-detail-row { flex-direction: column; align-items: flex-start; } .exam-detail-row label { width: auto; } }
+    </style>
+</head>
+<body>
+<div class="container" id="app"></div>
+
+<script>
+    let currentGenerator = "mcq";
+    
+    // ==================== BANKS WITH MATHS QUESTIONS ====================
+    let mcqBank = [];
+    let mixedBank = [];
+    let academicBank = [];
+    let selectedMcqIds = [];
+    let selectedMixedIds = [];
+    let selectedAcademicIds = [];
+    
+    // Link histories
+    let mcqLinkHistory = [];
+    let mixedLinkHistory = [];
+    let academicLinkHistory = [];
+    
+    // Storage keys
+    const STORAGE = {
+        mcq: "final_mcq_bank_maths",
+        mixed: "final_mixed_bank_maths",
+        academic: "final_academic_bank_maths",
+        mcqHistory: "final_mcq_history",
+        mixedHistory: "final_mixed_history",
+        academicHistory: "final_academic_history",
+        password: "exam_password"
+    };
+    
+    // 23 Handwritten Fonts
+    const handwrittenFonts = [
+        { name: "Caveat", value: "'Caveat', cursive" }, { name: "Dancing Script", value: "'Dancing Script', cursive" },
+        { name: "Great Vibes", value: "'Great Vibes', cursive" }, { name: "Satisfy", value: "'Satisfy', cursive" },
+        { name: "Pacifico", value: "'Pacifico', cursive" }, { name: "Indie Flower", value: "'Indie Flower', cursive" },
+        { name: "Patrick Hand", value: "'Patrick Hand', cursive" }, { name: "Coming Soon", value: "'Coming Soon', cursive" },
+        { name: "Shadows Into Light", value: "'Shadows Into Light', cursive" }, { name: "Kalam", value: "'Kalam', cursive" },
+        { name: "Rock Salt", value: "'Rock Salt', cursive" }, { name: "Gloria Hallelujah", value: "'Gloria Hallelujah', cursive" },
+        { name: "Bad Script", value: "'Bad Script', cursive" }, { name: "La Belle Aurore", value: "'La Belle Aurore', cursive" },
+        { name: "Reenie Beanie", value: "'Reenie Beanie', cursive" }, { name: "Covered By Your Grace", value: "'Covered By Your Grace', cursive" },
+        { name: "Handlee", value: "'Handlee', cursive" }, { name: "Neucha", value: "'Neucha', cursive" },
+        { name: "Nanum Pen Script", value: "'Nanum Pen Script', cursive" }, { name: "M PLUS Rounded 1c", value: "'M PLUS Rounded 1c', sans-serif" },
+        { name: "Amatic SC", value: "'Amatic SC', cursive" }, { name: "Architects Daughter", value: "'Architects Daughter', cursive" },
+        { name: "Courier Prime", value: "'Courier Prime', monospace" }
+    ];
+    
+    // Helper functions
+    function escapeHtml(str) {
+        return String(str).replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;');
+    }
+    
+    function uid() {
+        return Date.now() + '-' + Math.random().toString(36).substr(2, 6);
+    }
+    
+    async function shortenUrl(longUrl) {
+        try {
+            const res = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(longUrl)}`);
+            return res.ok ? await res.text() : longUrl;
+        } catch(e) { return longUrl; }
+    }
+    
+    function exportToPDF(htmlContent, title) {
+        const win = window.open();
+        win.document.write(`
+            <html><head><title>${escapeHtml(title)}</title>
+            <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async><\/script>
+            <style>body{margin:0;padding:0.5in;font-family:'Segoe UI',sans-serif;}</style>
+            </head><body>${htmlContent}</body></html>
+        `);
+        win.document.close();
+        setTimeout(() => { win.print(); }, 1000);
+    }
+    
+    // Generate Answer Key PDF
+    function generateAnswerKey(questions, type, title, className) {
+        let html = `<div style="text-align:center;"><h1>ANSWER KEY</h1><h2>${escapeHtml(title)}</h2><p>${escapeHtml(className)}</p><hr></div>`;
+        for (let i = 0; i < questions.length; i++) {
+            const q = questions[i];
+            html += `<div style="margin-bottom:20px;"><strong>Q${i+1}.</strong> ${escapeHtml(q.text)}<br>`;
+            if (type === 'mcq') {
+                html += `<span style="color:#28a745;">✓ Answer: ${String.fromCharCode(65+q.correct)}. ${escapeHtml(q.options[q.correct])}</span>`;
+            } else if (type === 'mixed') {
+                if (q.type === 'match') {
+                    let matches = Object.keys(q.correct).map(k => `${parseInt(k)+1} → ${q.correct[k]}`).join(', ');
+                    html += `<span style="color:#28a745;">✓ Answer: ${matches}</span>`;
+                } else if (q.type === 'fill') {
+                    let ans = Array.isArray(q.correct) ? q.correct.join(' / ') : q.correct;
+                    html += `<span style="color:#28a745;">✓ Answer: ${ans}</span>`;
+                } else if (q.type === 'truefalse') {
+                    html += `<span style="color:#28a745;">✓ Answer: ${q.correct ? 'True' : 'False'}</span>`;
+                } else if (q.type === 'onesentence') {
+                    html += `<span style="color:#28a745;">✓ Answer: ${escapeHtml(q.correct)}</span>`;
+                } else if (q.type === 'oddmanout') {
+                    html += `<span style="color:#28a745;">✓ Answer: ${String.fromCharCode(65+q.correct)}. ${escapeHtml(q.options[q.correct])}</span>`;
+                }
+            } else {
+                if (q.type === 'mcq') {
+                    html += `<span style="color:#28a745;">✓ Answer: ${String.fromCharCode(65+q.correct)}. ${escapeHtml(q.options[q.correct])}</span>`;
+                } else if (q.type === 'fill') {
+                    let ans = Array.isArray(q.correct) ? q.correct.join(' / ') : q.correct;
+                    html += `<span style="color:#28a745;">✓ Answer: ${ans}</span>`;
+                } else if (q.type === 'truefalse') {
+                    html += `<span style="color:#28a745;">✓ Answer: ${q.correct ? 'True' : 'False'}</span>`;
+                } else if (q.type === 'match') {
+                    let matches = Object.keys(q.correct).map(k => `${parseInt(k)+1} → ${q.correct[k]}`).join(', ');
+                    html += `<span style="color:#28a745;">✓ Answer: ${matches}</span>`;
+                } else if (q.type === 'oddmanout') {
+                    html += `<span style="color:#28a745;">✓ Answer: ${String.fromCharCode(65+q.correct)}. ${escapeHtml(q.options[q.correct])}</span>`;
+                } else if (q.type === 'onesentence') {
+                    html += `<span style="color:#28a745;">✓ Answer: ${escapeHtml(q.correct)}</span>`;
+                } else if (q.type === 'short') {
+                    html += `<span style="color:#28a745;">✓ Answer: ${escapeHtml(q.correct)}</span>`;
+                }
+            }
+            html += `</div>`;
+        }
+        exportToPDF(html, title + " - Answer Key");
+    }
+    
+    function createTestLink(type, title, className, questions, whatsapp) {
+        const testData = { type, title, className, questions, whatsapp };
+        const jsonStr = JSON.stringify(testData);
+        const base64 = btoa(unescape(encodeURIComponent(jsonStr)));
+        return window.location.href.split('?')[0] + '?test=' + encodeURIComponent(base64);
+    }
+    
+    function getStoredPassword() {
+        return localStorage.getItem(STORAGE.password) || "teacher2025";
+    }
+    
+    function changePassword() {
+        const newPassword = prompt("Enter new password (minimum 4 characters):");
+        if (newPassword && newPassword.length >= 4) {
+            localStorage.setItem(STORAGE.password, newPassword);
+            alert("Password changed successfully! New password: " + newPassword);
+        } else if (newPassword) {
+            alert("Password must be at least 4 characters.");
+        }
+    }
+    
+    function clearLinkHistory() {
+        if (currentGenerator === 'mcq') {
+            if (confirm("Clear MCQ link history?")) { mcqLinkHistory = []; localStorage.setItem(STORAGE.mcqHistory, JSON.stringify(mcqLinkHistory)); alert("MCQ link history cleared!"); }
+        } else if (currentGenerator === 'mixed') {
+            if (confirm("Clear Mixed link history?")) { mixedLinkHistory = []; localStorage.setItem(STORAGE.mixedHistory, JSON.stringify(mixedLinkHistory)); alert("Mixed link history cleared!"); }
+        } else if (currentGenerator === 'academic') {
+            if (confirm("Clear Academic link history?")) { academicLinkHistory = []; localStorage.setItem(STORAGE.academicHistory, JSON.stringify(academicLinkHistory)); alert("Academic link history cleared!"); }
+        }
+    }
+    
+    // Maths Sample Questions
+    const mathsMcqData = [
+        { text: "What is the value of \\( \\sqrt{144} \\) ?", options: ["10", "11", "12", "13"], correct: 2 },
+        { text: "The solution of \\( 2x + 5 = 15 \\) is:", options: ["3", "4", "5", "6"], correct: 2 },
+        { text: "What is \\( \\frac{3}{4} + \\frac{1}{2} \\) ?", options: ["1", "1.25", "1.5", "1.75"], correct: 1 },
+        { text: "The value of \\( \\pi \\) is approximately:", options: ["3.14", "3.41", "3.01", "3.04"], correct: 0 },
+        { text: "\\( \\sin 90° = ? \\)", options: ["0", "1", "-1", "0.5"], correct: 1 }
+    ];
+    
+    const mathsMixedData = [
+        { type: "match", text: "Match the following mathematical constants:", pairs: [["1. \\( \\pi \\)", "A. 3.14159"], ["2. \\( e \\)", "B. 2.71828"], ["3. \\( \\sqrt{2} \\)", "C. 1.41421"]], correct: {"0":"A","1":"B","2":"C"} },
+        { type: "fill", text: "The derivative of \\( e^x \\) is ______.", correct: ["e^x", "ex"] },
+        { type: "truefalse", text: "\\( \\sin^2 x + \\cos^2 x = 1 \\)", correct: true },
+        { type: "onesentence", text: "State the Pythagoras theorem.", correct: "In a right triangle, the square of the hypotenuse equals sum of squares of the other two sides." },
+        { type: "oddmanout", text: "Pick the odd one out:", options: ["\\( \\sin \\theta \\)", "\\( \\cos \\theta \\)", "\\( \\tan \\theta \\)", "\\( \\log x \\)"], correct: 3 }
+    ];
+    
+    const mathsAcademicData = [
+        { type: "mcq", marks: 1, text: "What is \\( \\sqrt{169} \\) ?", options: ["12", "13", "14", "15"], correct: 1 },
+        { type: "fill", marks: 1, text: "The value of \\( \\pi \\) is approximately ______.", correct: ["3.14", "22/7"] },
+        { type: "truefalse", marks: 1, text: "Every integer is a rational number.", correct: true },
+        { type: "match", marks: 2, text: "Match the formulas:", pairs: [["1. Area of circle", "A. \\( \\pi r^2 \\)"], ["2. Circumference", "B. \\( 2\\pi r \\)"]], correct: {"0":"A","1":"B"} },
+        { type: "oddmanout", marks: 2, text: "Pick the odd one out:", options: ["\\( \\sin 0° \\)", "\\( \\cos 0° \\)", "\\( \\tan 0° \\)", "\\( \\cot 0° \\)"], correct: 3 },
+        { type: "onesentence", marks: 2, text: "What is the value of \\( \\int_0^1 x^2 dx \\) ?", correct: "\\( \\frac{1}{3} \\)" },
+        { type: "short", marks: 3, text: "Solve: \\( 3x - 7 = 2x + 5 \\)", correct: "x = 12" }
+    ];
+    
+    // Load all banks
+    function loadAllBanks() {
+        const savedMcq = localStorage.getItem(STORAGE.mcq);
+        if (savedMcq) mcqBank = JSON.parse(savedMcq);
+        else { mcqBank = mathsMcqData.map(q => ({ id: uid(), ...q })); }
+        
+        const savedMixed = localStorage.getItem(STORAGE.mixed);
+        if (savedMixed) mixedBank = JSON.parse(savedMixed);
+        else { mixedBank = mathsMixedData.map(q => ({ id: uid(), ...q })); }
+        
+        const savedAcademic = localStorage.getItem(STORAGE.academic);
+        if (savedAcademic) academicBank = JSON.parse(savedAcademic);
+        else { academicBank = mathsAcademicData.map(q => ({ id: uid(), ...q })); }
+        
+        // Load histories
+        mcqLinkHistory = JSON.parse(localStorage.getItem(STORAGE.mcqHistory) || "[]");
+        mixedLinkHistory = JSON.parse(localStorage.getItem(STORAGE.mixedHistory) || "[]");
+        academicLinkHistory = JSON.parse(localStorage.getItem(STORAGE.academicHistory) || "[]");
+        
+        saveAllBanks();
+    }
+    
+    function saveAllBanks() {
+        localStorage.setItem(STORAGE.mcq, JSON.stringify(mcqBank));
+        localStorage.setItem(STORAGE.mixed, JSON.stringify(mixedBank));
+        localStorage.setItem(STORAGE.academic, JSON.stringify(academicBank));
+    }
+    
+    function clearAllData() {
+        if (confirm("⚠️ Delete ALL questions from ALL banks? This cannot be undone!")) {
+            localStorage.removeItem(STORAGE.mcq);
+            localStorage.removeItem(STORAGE.mixed);
+            localStorage.removeItem(STORAGE.academic);
+            loadAllBanks();
+            selectedMcqIds = []; selectedMixedIds = []; selectedAcademicIds = [];
+            if (currentGenerator === 'mcq') renderMcqPanel();
+            if (currentGenerator === 'mixed') renderMixedPanel();
+            if (currentGenerator === 'academic') renderAcademicPanel();
+            alert("All data cleared!");
+        }
+    }
+    
+    function logout() { localStorage.removeItem("exam_logged"); location.reload(); }
+    
+    // Student test view
+    function renderStudentTest(testData) {
+        const { type, title, className, questions, whatsapp } = testData;
+        const app = document.getElementById('app');
+        let html = `<div class="card"><h2>📝 ${escapeHtml(title)}</h2><p><strong>Class:</strong> ${escapeHtml(className)}</p><p><strong>Questions:</strong> ${questions.length}</p><hr>
+            <div><label>👤 Your Name:</label> <input type="text" id="studentName" required style="width:100%; padding:10px; margin:10px 0; border-radius:10px; border:1px solid #ddd;"></div>
+            <form id="testForm">`;
+        for (let i = 0; i < questions.length; i++) {
+            const q = questions[i];
+            html += `<div style="margin: 20px 0; padding: 15px; background: #f8f9fa; border-radius: 15px;">
+                        <div><strong>Q${i+1}.</strong> ${q.text}</div>`;
+            if (type === 'mcq') {
+                html += `<div style="margin-top: 10px;">`;
+                for (let j = 0; j < q.options.length; j++) {
+                    html += `<label style="display: block; margin: 5px 0;"><input type="radio" name="q${i}" value="${j}"> ${String.fromCharCode(65+j)}. ${escapeHtml(q.options[j])}</label>`;
+                }
+                html += `</div>`;
+            } else if (type === 'mixed') {
+                if (q.type === 'match') {
+                    html += `<div style="display:flex; gap:20px; margin-top:10px;"><div>${q.pairs.map(p => p[0]).join('<br>')}</div><div>${q.pairs.map(p => p[1]).join('<br>')}</div></div>
+                            <input type="text" name="q${i}" placeholder="e.g., 1:A,2:B" style="margin-top:10px;">`;
+                } else if (q.type === 'fill') {
+                    html += `<input type="text" name="q${i}" placeholder="Your answer" style="margin-top:10px;">`;
+                } else if (q.type === 'truefalse') {
+                    html += `<div style="margin-top:10px;"><label><input type="radio" name="q${i}" value="true"> True</label>
+                            <label style="margin-left:20px;"><input type="radio" name="q${i}" value="false"> False</label></div>`;
+                } else if (q.type === 'onesentence') {
+                    html += `<textarea name="q${i}" rows="2" style="margin-top:10px;" placeholder="Answer in one sentence"></textarea>`;
+                } else if (q.type === 'oddmanout') {
+                    html += `<div style="margin-top:10px;">`;
+                    for (let j = 0; j < q.options.length; j++) {
+                        html += `<label style="display: block;"><input type="radio" name="q${i}" value="${j}"> ${String.fromCharCode(65+j)}. ${escapeHtml(q.options[j])}</label>`;
+                    }
+                    html += `</div>`;
+                }
+            } else {
+                if (q.type === 'mcq') {
+                    html += `<div style="margin-top:10px;">`;
+                    for (let j = 0; j < q.options.length; j++) {
+                        html += `<label style="display: block;"><input type="radio" name="q${i}" value="${j}"> ${String.fromCharCode(65+j)}. ${escapeHtml(q.options[j])}</label>`;
+                    }
+                    html += `</div>`;
+                } else if (q.type === 'fill') {
+                    html += `<input type="text" name="q${i}" placeholder="Your answer" style="margin-top:10px;">`;
+                } else if (q.type === 'truefalse') {
+                    html += `<div style="margin-top:10px;"><label><input type="radio" name="q${i}" value="true"> True</label>
+                            <label style="margin-left:20px;"><input type="radio" name="q${i}" value="false"> False</label></div>`;
+                } else if (q.type === 'match') {
+                    html += `<div style="display:flex; gap:20px; margin-top:10px;"><div>${q.pairs.map(p => p[0]).join('<br>')}</div><div>${q.pairs.map(p => p[1]).join('<br>')}</div></div>
+                            <input type="text" name="q${i}" placeholder="e.g., 1:A,2:B" style="margin-top:10px;">`;
+                } else if (q.type === 'oddmanout') {
+                    html += `<div style="margin-top:10px;">`;
+                    for (let j = 0; j < q.options.length; j++) {
+                        html += `<label style="display: block;"><input type="radio" name="q${i}" value="${j}"> ${String.fromCharCode(65+j)}. ${escapeHtml(q.options[j])}</label>`;
+                    }
+                    html += `</div>`;
+                } else if (q.type === 'onesentence') {
+                    html += `<textarea name="q${i}" rows="2" style="margin-top:10px;" placeholder="Answer in one sentence"></textarea>`;
+                } else if (q.type === 'short') {
+                    html += `<textarea name="q${i}" rows="3" style="margin-top:10px;" placeholder="Write your answer"></textarea>`;
+                }
+            }
+            html += `<div class="feedback" id="fb-${i}" style="margin-top: 10px;"></div></div>`;
+        }
+        html += `<button type="submit" style="width:100%; padding:12px; background:#667eea; color:white; border:none; border-radius:12px; font-size:16px;">✅ Submit Test</button></form></div>`;
+        app.innerHTML = html;
+        MathJax.typesetPromise?.();
+        
+        const form = document.getElementById('testForm');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const studentName = document.getElementById('studentName').value.trim();
+            if (!studentName) { alert("Please enter your name"); return; }
+            let score = 0, wrongQuestions = [];
+            for (let i = 0; i < questions.length; i++) {
+                const q = questions[i];
+                let isCorrect = false;
+                if (type === 'mcq') {
+                    const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                    if (selected && parseInt(selected.value) === q.correct) isCorrect = true;
+                } else if (type === 'mixed') {
+                    if (q.type === 'match') {
+                        const ans = document.querySelector(`input[name="q${i}"]`).value.trim();
+                        const pairs = ans.split(',').map(p => p.trim().toUpperCase());
+                        let ok = true;
+                        for (let j = 0; j < pairs.length; j++) {
+                            const [k, v] = pairs[j].split(':');
+                            if (!q.correct[k-1] || q.correct[k-1] !== v) ok = false;
+                        }
+                        if (ok && pairs.length === Object.keys(q.correct).length) isCorrect = true;
+                    } else if (q.type === 'fill') {
+                        const ans = document.querySelector(`input[name="q${i}"]`).value.trim();
+                        const correctArr = Array.isArray(q.correct) ? q.correct : [q.correct];
+                        isCorrect = correctArr.some(c => c.toLowerCase() === ans.toLowerCase());
+                    } else if (q.type === 'truefalse') {
+                        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                        if (selected && (selected.value === 'true') === q.correct) isCorrect = true;
+                    } else if (q.type === 'onesentence') {
+                        const ans = document.querySelector(`textarea[name="q${i}"]`).value.trim();
+                        isCorrect = ans.length > 3;
+                    } else if (q.type === 'oddmanout') {
+                        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                        if (selected && parseInt(selected.value) === q.correct) isCorrect = true;
+                    }
+                } else {
+                    if (q.type === 'mcq') {
+                        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                        if (selected && parseInt(selected.value) === q.correct) isCorrect = true;
+                    } else if (q.type === 'fill') {
+                        const ans = document.querySelector(`input[name="q${i}"]`).value.trim();
+                        const correctArr = Array.isArray(q.correct) ? q.correct : [q.correct];
+                        isCorrect = correctArr.some(c => c.toLowerCase() === ans.toLowerCase());
+                    } else if (q.type === 'truefalse') {
+                        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                        if (selected && (selected.value === 'true') === q.correct) isCorrect = true;
+                    } else if (q.type === 'match') {
+                        const ans = document.querySelector(`input[name="q${i}"]`).value.trim();
+                        const pairs = ans.split(',').map(p => p.trim().toUpperCase());
+                        let ok = true;
+                        for (let j = 0; j < pairs.length; j++) {
+                            const [k, v] = pairs[j].split(':');
+                            if (!q.correct[k-1] || q.correct[k-1] !== v) ok = false;
+                        }
+                        if (ok && pairs.length === Object.keys(q.correct).length) isCorrect = true;
+                    } else if (q.type === 'oddmanout') {
+                        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                        if (selected && parseInt(selected.value) === q.correct) isCorrect = true;
+                    } else if (q.type === 'onesentence') {
+                        const ans = document.querySelector(`textarea[name="q${i}"]`).value.trim();
+                        isCorrect = ans.length > 5;
+                    } else if (q.type === 'short') {
+                        const ans = document.querySelector(`textarea[name="q${i}"]`).value.trim();
+                        isCorrect = ans.length > 10;
+                    }
+                }
+                if (isCorrect) score++;
+                else wrongQuestions.push(i+1);
+                const fb = document.getElementById(`fb-${i}`);
+                fb.innerHTML = isCorrect ? '✅ Correct' : '❌ Incorrect';
+                fb.style.color = isCorrect ? 'green' : 'red';
+                fb.style.fontWeight = 'bold';
+            }
+            const percent = Math.round(score/questions.length*100);
+            const timestamp = new Date().toLocaleString();
+            const wrongText = wrongQuestions.length ? `\n❌ Wrong Questions: ${wrongQuestions.join(', ')}` : '\n✅ All correct!';
+            const message = `📊 *Test Result*\n\nStudent: ${studentName}\nTest: ${title}\nClass: ${className}\nDate: ${timestamp}\nScore: ${score}/${questions.length} (${percent}%)${wrongText}`;
+            alert(message);
+            if (whatsapp) { window.open(`https://wa.me/${whatsapp}?text=${encodeURIComponent(message)}`, '_blank'); }
+            setTimeout(() => window.location.href = window.location.pathname, 2000);
+        });
+    }
+    
+    // ==================== LOGIN & MAIN ====================
+    function showLogin() {
+        document.getElementById('app').innerHTML = `
+            <div class="login-card">
+                <h2>🔒 Smart Exam Suite</h2>
+                <p>Enter teacher password</p>
+                <input type="password" id="loginPwd" placeholder="Password">
+                <button onclick="checkLogin()">Login</button>
+                <div class="warning" style="margin-top: 15px;">Welcome</div>
+                <div class="math-preview">AV Private Tuitions</div>
+            </div>`;
+    }
+    
+    window.checkLogin = function() {
+        const storedPassword = getStoredPassword();
+        const pwd = document.getElementById('loginPwd').value;
+        if (pwd === storedPassword) {
+            localStorage.setItem("exam_logged", "true");
+            showMainApp();
+        } else { alert("Wrong password!"); }
+    }
+    
+    function showMainApp() {
+        loadAllBanks();
+        const savedSchool = localStorage.getItem("csc_school") || "CENTRAL BOARD OF SECONDARY EDUCATION";
+        const savedExam = localStorage.getItem("csc_exam") || "SUMMATIVE ASSESSMENT";
+        const savedSubject = localStorage.getItem("csc_subject") || "MATHEMATICS";
+        const savedClass = localStorage.getItem("csc_class") || "CLASS - VI";
+        const savedTerm = localStorage.getItem("csc_term") || "TERM - I (2025-26)";
+        
+        document.getElementById('app').innerHTML = `
+            <div class="csc-header">
+                <div class="csc-header-top">
+                    <div class="csc-logo"><div class="csc-logo-icon">📚</div><div class="csc-logo-text"><h2>CBSE</h2><p>Central Board of Secondary Education</p></div></div>
+                    <div class="csc-title"><h1 contenteditable="true" id="editableExamTitle">${escapeHtml(savedExam)}</h1><p contenteditable="true" id="editableSubject">${escapeHtml(savedSubject)}</p></div>
+                    <div class="csc-logo"><div class="csc-logo-text" style="text-align:right"><h2>${escapeHtml(savedClass)}</h2><p>${escapeHtml(savedTerm)}</p></div><div class="csc-logo-icon">🏫</div></div>
+                </div>
+                <div class="csc-editable">
+                    <div class="editable-field"><label>🏫 School:</label> <input type="text" id="editSchool" value="${escapeHtml(savedSchool)}"></div>
+                    <div class="editable-field"><label>📖 Subject:</label> <input type="text" id="editSubject" value="${escapeHtml(savedSubject)}"></div>
+                    <div class="editable-field"><label>📚 Class:</label> <input type="text" id="editClass" value="${escapeHtml(savedClass)}"></div>
+                    <div class="editable-field"><label>📅 Term:</label> <input type="text" id="editTerm" value="${escapeHtml(savedTerm)}"></div>
+                </div>
+            </div>
+            <div class="admin-bar">
+                <button onclick="logout()" class="btn-danger">🚪 Logout</button>
+                <button onclick="clearAllData()" class="btn-danger">🗑️ Clear All Banks</button>
+                <button onclick="clearLinkHistory()" class="btn-warning">📋 Clear Link History</button>
+                <button onclick="changePassword()" class="btn-warning">🔑 Change Password</button>
+            </div>
+            <div class="tabs">
+                <button class="tab ${currentGenerator === 'mcq' ? 'active' : ''}" onclick="switchGenerator('mcq')">❓ MCQ Generator</button>
+                <button class="tab ${currentGenerator === 'mixed' ? 'active' : ''}" onclick="switchGenerator('mixed')">📋 Mixed Paper</button>
+                <button class="tab ${currentGenerator === 'academic' ? 'active' : ''}" onclick="switchGenerator('academic')">🎓 Academic Paper</button>
+            </div>
+            <div id="mcqPanel" class="generator-panel ${currentGenerator === 'mcq' ? 'active-panel' : ''}"></div>
+            <div id="mixedPanel" class="generator-panel ${currentGenerator === 'mixed' ? 'active-panel' : ''}"></div>
+            <div id="academicPanel" class="generator-panel ${currentGenerator === 'academic' ? 'active-panel' : ''}"></div>`;
+        
+        document.getElementById('editSchool').addEventListener('change', () => { localStorage.setItem("csc_school", document.getElementById('editSchool').value); });
+        document.getElementById('editSubject').addEventListener('change', () => { localStorage.setItem("csc_subject", document.getElementById('editSubject').value); document.getElementById('editableSubject').innerText = document.getElementById('editSubject').value; });
+        document.getElementById('editClass').addEventListener('change', () => { localStorage.setItem("csc_class", document.getElementById('editClass').value); });
+        document.getElementById('editTerm').addEventListener('change', () => { localStorage.setItem("csc_term", document.getElementById('editTerm').value); });
+        
+        renderMcqPanel(); renderMixedPanel(); renderAcademicPanel();
+    }
+    
+    window.switchGenerator = function(gen) {
+        currentGenerator = gen;
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        event.target.classList.add('active');
+        document.querySelectorAll('.generator-panel').forEach(p => p.classList.remove('active-panel'));
+        document.getElementById(`${gen}Panel`).classList.add('active-panel');
+        if (gen === 'mcq') renderMcqPanel();
+        if (gen === 'mixed') renderMixedPanel();
+        if (gen === 'academic') renderAcademicPanel();
+    }
+    
+    // ==================== MCQ PANEL ====================
+    function renderMcqPanel() {
+        const container = document.getElementById('mcqPanel');
+        container.innerHTML = `
+            <div class="card"><div class="card-header">📚 MCQ Question Bank<div>
+                <button onclick="addMcqQuestion()">+ Add MCQ</button>
+                <button onclick="importMcqJSON()" style="background:#48bb78;">📂 Import JSON</button>
+                <button onclick="pasteMcqJSON()" style="background:#ed8936;">📋 Paste JSON</button>
+                <button onclick="exportMcqJSON()" style="background:#667eea;">💾 Export JSON</button>
+                <button onclick="clearMcqBank()" class="btn-danger">🗑️ Clear Bank</button>
+            </div></div><div id="mcqBankList"></div></div>
+            <div class="card"><div class="card-header">📝 Create MCQ Test</div><div class="grid-2"><div>
+                <label>🏷️ Class Name:</label><input type="text" id="mcqClassName" value="General Class">
+                <label>📝 Test Title:</label><input type="text" id="mcqTestTitle" value="MCQ Assessment">
+                <label>📱 Your WhatsApp:</label><input type="text" id="mcqWhatsapp" placeholder="e.g., 919876543210">
+                <div style="margin:15px 0;"><strong>📌 Select Questions:</strong></div><div id="mcqSelector"></div>
+                <div style="margin-top:10px;"><button onclick="selectAllMcq()">✅ Select All</button> <button onclick="clearSelectedMcq()">🗑️ Clear All</button></div>
+                <button onclick="generateMcqLink()" style="width:100%; margin-top:15px;">🔗 Generate Link</button>
+                <button onclick="exportMcqPaperPDF()" class="btn-success" style="width:100%; margin-top:10px;">📄 Export Paper PDF</button>
+                <button onclick="exportMcqAnswerKey()" class="btn-warning" style="width:100%; margin-top:10px;">🔑 Export Answer Key PDF</button>
+            </div><div><div style="font-weight:bold;">📌 Preview</div><div id="mcqPreview" style="background:#f8f9fa; border-radius:12px; padding:15px; min-height:150px;"></div><div id="mcqLinkArea"></div></div></div></div>`;
+        renderMcqBankList(); renderMcqSelector(); updateMcqPreview();
+    }
+    
+    function renderMcqBankList() {
+        const container = document.getElementById('mcqBankList');
+        if (!mcqBank.length) { container.innerHTML = '<div class="warning">No questions. Click "+ Add MCQ" or import JSON.</div>'; return; }
+        let html = '';
+        mcqBank.forEach((q, idx) => { html += `<div class="question-item"><div><strong>${idx+1}.</strong> ${q.text}</div><div><button onclick="editMcqQuestion('${q.id}')" style="background:#ed8936;">✏️ Edit</button> <button onclick="deleteMcqQuestion('${q.id}')" style="background:#e53e3e;">🗑️ Delete</button></div></div>`; });
+        container.innerHTML = html;
+        MathJax.typesetPromise?.();
+    }
+    
+    function renderMcqSelector() {
+        const container = document.getElementById('mcqSelector');
+        if (!mcqBank.length) { container.innerHTML = '<div class="warning">No questions available</div>'; return; }
+        let html = '';
+        mcqBank.forEach((q, idx) => {
+            const checked = selectedMcqIds.includes(q.id) ? 'checked' : '';
+            html += `<label style="display:block; margin:8px 0; padding:8px; background:#f8f9fa; border-radius:12px;">
+                        <input type="checkbox" class="mcqCheckbox" data-id="${q.id}" ${checked} style="margin-right:10px;">
+                        <strong>${idx+1}.</strong> ${q.text.substring(0,70)}
+                    </label>`;
+        });
+        container.innerHTML = html;
+        document.querySelectorAll('.mcqCheckbox').forEach(cb => { cb.onclick = () => toggleSelectMcq(cb.getAttribute('data-id')); });
+        MathJax.typesetPromise?.();
+    }
+    
+    function updateMcqPreview() {
+        const selected = mcqBank.filter(q => selectedMcqIds.includes(q.id));
+        const preview = document.getElementById('mcqPreview');
+        if (!selected.length) { preview.innerHTML = '<em>No questions selected</em>'; return; }
+        let html = `<ul style="margin-left:20px;">`;
+        selected.forEach((q, i) => { html += `<li><strong>${i+1}.</strong> ${q.text.substring(0,70)}</li>`; });
+        html += `</ul><div class="warning">✅ Total: ${selected.length} questions</div>`;
+        preview.innerHTML = html;
+    }
+    
+    function toggleSelectMcq(id) {
+        if (selectedMcqIds.includes(id)) { selectedMcqIds = selectedMcqIds.filter(s => s != id); }
+        else { selectedMcqIds.push(id); }
+        updateMcqPreview(); renderMcqSelector();
+    }
+    
+    window.selectAllMcq = function() { selectedMcqIds = mcqBank.map(q => q.id); updateMcqPreview(); renderMcqSelector(); }
+    window.clearSelectedMcq = function() { selectedMcqIds = []; updateMcqPreview(); renderMcqSelector(); }
+    
+    window.addMcqQuestion = function() {
+        let text = prompt("Enter question (use LaTeX like \\( \\sqrt{2} \\)):");
+        if (!text) return;
+        let opts = [];
+        for (let i = 0; i < 4; i++) { let opt = prompt(`Option ${String.fromCharCode(65+i)}:`); if (!opt) break; opts.push(opt); }
+        if (opts.length < 2) { alert("Need at least 2 options"); return; }
+        let correct = parseInt(prompt(`Correct index (0-${opts.length-1}):`));
+        mcqBank.push({ id: uid(), text: text, options: opts, correct: correct });
+        saveAllBanks(); renderMcqPanel();
+    }
+    
+    window.deleteMcqQuestion = function(id) {
+        if (confirm("Delete this question?")) { mcqBank = mcqBank.filter(q => q.id != id); selectedMcqIds = selectedMcqIds.filter(sid => sid != id); saveAllBanks(); renderMcqPanel(); }
+    }
+    
+    window.editMcqQuestion = function(id) {
+        const q = mcqBank.find(q => q.id == id);
+        if (!q) return;
+        let newText = prompt("Edit question:", q.text);
+        if (!newText) return;
+        let newOpts = [];
+        for (let i = 0; i < q.options.length; i++) { newOpts.push(prompt(`Option ${String.fromCharCode(65+i)}:`, q.options[i])); }
+        let newCorrect = parseInt(prompt(`Correct index (0-${q.options.length-1}):`, q.correct));
+        q.text = newText; q.options = newOpts; q.correct = newCorrect;
+        saveAllBanks(); renderMcqPanel();
+    }
+    
+    window.importMcqJSON = function() {
+        const input = document.createElement('input');
+        input.type = 'file'; input.accept = '.json';
+        input.onchange = (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                try {
+                    const imported = JSON.parse(ev.target.result);
+                    if (Array.isArray(imported)) {
+                        for (let item of imported) { if (item.text && item.options && typeof item.correct === 'number') { item.id = uid(); mcqBank.push(item); } }
+                        saveAllBanks(); renderMcqPanel();
+                        alert(`✅ Imported ${imported.length} questions!`);
+                    } else alert("Invalid JSON: Root must be an array");
+                } catch(err) { alert("Invalid JSON file"); }
+            };
+            reader.readAsText(file);
+        };
+        input.click();
+    }
+    
+    window.pasteMcqJSON = function() {
+        const jsonText = prompt("Paste your JSON array here:");
+        if (!jsonText) return;
+        try {
+            const imported = JSON.parse(jsonText);
+            if (Array.isArray(imported)) {
+                for (let item of imported) { if (item.text && item.options && typeof item.correct === 'number') { item.id = uid(); mcqBank.push(item); } }
+                saveAllBanks(); renderMcqPanel();
+                alert(`✅ Pasted ${imported.length} questions!`);
+            } else alert("Invalid JSON: Root must be an array");
+        } catch(err) { alert("Invalid JSON format"); }
+    }
+    
+    window.exportMcqJSON = function() {
+        const exportData = mcqBank.map(({ text, options, correct }) => ({ text, options, correct }));
+        const jsonStr = JSON.stringify(exportData, null, 2);
+        const blob = new Blob([jsonStr], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = "mcq_questions.json"; a.click(); URL.revokeObjectURL(url);
+    }
+    
+    window.clearMcqBank = function() {
+        if (confirm("Delete ALL MCQ questions?")) { mcqBank = []; selectedMcqIds = []; saveAllBanks(); renderMcqPanel(); }
+    }
+    
+    window.exportMcqPaperPDF = function() {
+        const selected = mcqBank.filter(q => selectedMcqIds.includes(q.id));
+        if (!selected.length) { alert("Select questions first"); return; }
+        const title = document.getElementById("mcqTestTitle").value || "MCQ Test";
+        const className = document.getElementById("mcqClassName").value || "General Class";
+        let html = `<div style="text-align:center;"><h1>${escapeHtml(title)}</h1><p>${escapeHtml(className)}</p><hr></div>`;
+        selected.forEach((q, i) => {
+            html += `<div style="margin-bottom:20px;"><strong>Q${i+1}.</strong> ${escapeHtml(q.text)}<br>`;
+            q.options.forEach((opt, j) => { html += `${String.fromCharCode(65+j)}. ${escapeHtml(opt)}<br>`; });
+            html += `</div>`;
+        });
+        exportToPDF(html, title);
+    }
+    
+    window.exportMcqAnswerKey = function() {
+        const selected = mcqBank.filter(q => selectedMcqIds.includes(q.id));
+        if (!selected.length) { alert("Select questions first"); return; }
+        const title = document.getElementById("mcqTestTitle").value || "MCQ Test";
+        const className = document.getElementById("mcqClassName").value || "General Class";
+        generateAnswerKey(selected, 'mcq', title, className);
+    }
+    
+    window.generateMcqLink = async function() {
+        if (selectedMcqIds.length === 0) { alert("Select at least one question"); return; }
+        const selected = mcqBank.filter(q => selectedMcqIds.includes(q.id));
+        const title = document.getElementById("mcqTestTitle").value || "MCQ Test";
+        const className = document.getElementById("mcqClassName").value || "General Class";
+        const whatsapp = document.getElementById("mcqWhatsapp").value || "";
+        const fullLink = createTestLink("mcq", title, className, selected, whatsapp);
+        const shortLink = await shortenUrl(fullLink);
+        const shareText = encodeURIComponent(`📝 *${title}* - ${className}\n\nClick here:\n${shortLink}\n\nBest of luck!`);
+        mcqLinkHistory.unshift({ link: shortLink, date: new Date().toLocaleString(), title, className });
+        mcqLinkHistory = mcqLinkHistory.slice(0, 20);
+        localStorage.setItem(STORAGE.mcqHistory, JSON.stringify(mcqLinkHistory));
+        document.getElementById("mcqLinkArea").innerHTML = `
+            <div class="link-box"><div><strong>🔗 Short Link:</strong><br><a href="${shortLink}" target="_blank">${shortLink}</a></div>
+            <div style="margin-top:10px;"><strong>📎 Full Link:</strong><br><a href="${fullLink}" target="_blank">${fullLink}</a></div></div>
+            <div class="share-buttons">
+                <button onclick="navigator.clipboard.writeText('${shortLink}')">📋 Copy Short</button>
+                <button onclick="navigator.clipboard.writeText('${fullLink}')">📋 Copy Full</button>
+                <button onclick="window.open('https://wa.me/?text=${shareText}', '_blank')" style="background:#25D366;">💬 WhatsApp</button>
+                <button onclick="window.location.href='mailto:?subject=Test Link&body=${shareText}'" style="background:#EA4335;">📧 Email</button>
+            </div>`;
+    }
+    
+    // ==================== MIXED PANEL ====================
+    function renderMixedPanel() {
+        const container = document.getElementById('mixedPanel');
+        container.innerHTML = `
+            <div class="card"><div class="card-header">📋 Mixed Question Bank<div>
+                <button onclick="importMixedJSON()" style="background:#48bb78;">📂 Import JSON</button>
+                <button onclick="pasteMixedJSON()" style="background:#ed8936;">📋 Paste JSON</button>
+                <button onclick="exportMixedJSON()" style="background:#667eea;">💾 Export JSON</button>
+                <button onclick="clearMixedBank()" class="btn-danger">🗑️ Clear Bank</button>
+            </div></div><div id="mixedBankList"></div></div>
+            <div class="card"><div class="card-header">📝 Create Mixed Test</div><div class="grid-2"><div>
+                <label>🏷️ Class Name:</label><input type="text" id="mixedClassName" value="General Class">
+                <label>📝 Test Title:</label><input type="text" id="mixedTestTitle" value="Mixed Assessment">
+                <label>📱 Your WhatsApp:</label><input type="text" id="mixedWhatsapp" placeholder="e.g., 919876543210">
+                <div style="margin:15px 0;"><strong>📌 Select Questions:</strong></div><div id="mixedSelector"></div>
+                <div style="margin-top:10px;"><button onclick="selectAllMixed()">✅ Select All</button> <button onclick="clearSelectedMixed()">🗑️ Clear All</button></div>
+                <button onclick="generateMixedLink()" style="width:100%; margin-top:15px;">🔗 Generate Link</button>
+                <button onclick="exportMixedPaperPDF()" class="btn-success" style="width:100%; margin-top:10px;">📄 Export Paper PDF</button>
+                <button onclick="exportMixedAnswerKey()" class="btn-warning" style="width:100%; margin-top:10px;">🔑 Export Answer Key PDF</button>
+            </div><div><div style="font-weight:bold;">📌 Preview</div><div id="mixedPreview" style="background:#f8f9fa; border-radius:12px; padding:15px; min-height:150px;"></div><div id="mixedLinkArea"></div></div></div></div>`;
+        renderMixedBankList(); renderMixedSelector(); updateMixedPreview();
+    }
+    
+    function renderMixedBankList() {
+        const container = document.getElementById('mixedBankList');
+        if (!mixedBank.length) { container.innerHTML = '<div class="warning">No mixed questions. Import JSON.</div>'; return; }
+        let html = '';
+        mixedBank.forEach((q, idx) => {
+            const typeIcon = { match:'🔗', fill:'📝', truefalse:'⚖️', onesentence:'✍️', oddmanout:'🤔' }[q.type] || '?';
+            html += `<div class="question-item"><div><strong>${typeIcon} ${q.type.toUpperCase()}:</strong> ${q.text}</div><div><button onclick="deleteMixedQuestion('${q.id}')" style="background:#e53e3e;">🗑️ Delete</button></div></div>`;
+        });
+        container.innerHTML = html;
+        MathJax.typesetPromise?.();
+    }
+    
+    function renderMixedSelector() {
+        const container = document.getElementById('mixedSelector');
+        if (!mixedBank.length) { container.innerHTML = '<div class="warning">No questions available</div>'; return; }
+        let html = '';
+        mixedBank.forEach((q, idx) => {
+            const checked = selectedMixedIds.includes(q.id) ? 'checked' : '';
+            const typeIcon = { match:'🔗', fill:'📝', truefalse:'⚖️', onesentence:'✍️', oddmanout:'🤔' }[q.type] || '?';
+            html += `<label style="display:block; margin:8px 0; padding:8px; background:#f8f9fa; border-radius:12px;">
+                        <input type="checkbox" class="mixedCheckbox" data-id="${q.id}" ${checked} style="margin-right:10px;">
+                        ${typeIcon} ${q.type.toUpperCase()}: ${q.text.substring(0,70)}
+                    </label>`;
+        });
+        container.innerHTML = html;
+        document.querySelectorAll('.mixedCheckbox').forEach(cb => { cb.onclick = () => toggleSelectMixed(cb.getAttribute('data-id')); });
+        MathJax.typesetPromise?.();
+    }
+    
+    function updateMixedPreview() {
+        const selected = mixedBank.filter(q => selectedMixedIds.includes(q.id));
+        const preview = document.getElementById('mixedPreview');
+        if (!selected.length) { preview.innerHTML = '<em>No questions selected</em>'; return; }
+        let html = `<ul style="margin-left:20px;">`;
+        selected.forEach((q, i) => { html += `<li><strong>${i+1}.</strong> ${q.text.substring(0,70)}</li>`; });
+        html += `</ul><div class="warning">✅ Total: ${selected.length} questions</div>`;
+        preview.innerHTML = html;
+    }
+    
+    function toggleSelectMixed(id) {
+        if (selectedMixedIds.includes(id)) { selectedMixedIds = selectedMixedIds.filter(s => s != id); }
+        else { selectedMixedIds.push(id); }
+        updateMixedPreview(); renderMixedSelector();
+    }
+    
+    window.selectAllMixed = function() { selectedMixedIds = mixedBank.map(q => q.id); updateMixedPreview(); renderMixedSelector(); }
+    window.clearSelectedMixed = function() { selectedMixedIds = []; updateMixedPreview(); renderMixedSelector(); }
+    
+    window.deleteMixedQuestion = function(id) {
+        if (confirm("Delete this question?")) { mixedBank = mixedBank.filter(q => q.id != id); selectedMixedIds = selectedMixedIds.filter(sid => sid != id); saveAllBanks(); renderMixedPanel(); }
+    }
+    
+    window.importMixedJSON = function() {
+        const input = document.createElement('input'); input.type = 'file'; input.accept = '.json';
+        input.onchange = (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                try {
+                    const imported = JSON.parse(ev.target.result);
+                    if (Array.isArray(imported)) {
+                        for (let item of imported) { item.id = uid(); mixedBank.push(item); }
+                        saveAllBanks(); renderMixedPanel();
+                        alert(`✅ Imported ${imported.length} questions!`);
+                    } else alert("Invalid JSON: Root must be an array");
+                } catch(err) { alert("Invalid JSON file"); }
+            };
+            reader.readAsText(file);
+        };
+        input.click();
+    }
+    
+    window.pasteMixedJSON = function() {
+        const jsonText = prompt("Paste your JSON array here:");
+        if (!jsonText) return;
+        try {
+            const imported = JSON.parse(jsonText);
+            if (Array.isArray(imported)) {
+                for (let item of imported) { item.id = uid(); mixedBank.push(item); }
+                saveAllBanks(); renderMixedPanel();
+                alert(`✅ Pasted ${imported.length} questions!`);
+            } else alert("Invalid JSON: Root must be an array");
+        } catch(err) { alert("Invalid JSON format"); }
+    }
+    
+    window.exportMixedJSON = function() {
+        const jsonStr = JSON.stringify(mixedBank, null, 2);
+        const blob = new Blob([jsonStr], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = "mixed_questions.json"; a.click(); URL.revokeObjectURL(url);
+    }
+    
+    window.clearMixedBank = function() {
+        if (confirm("Delete ALL mixed questions?")) { mixedBank = []; selectedMixedIds = []; saveAllBanks(); renderMixedPanel(); }
+    }
+    
+    window.exportMixedPaperPDF = function() {
+        const selected = mixedBank.filter(q => selectedMixedIds.includes(q.id));
+        if (!selected.length) { alert("Select questions first"); return; }
+        const title = document.getElementById("mixedTestTitle").value || "Mixed Test";
+        const className = document.getElementById("mixedClassName").value || "General Class";
+        let html = `<div style="text-align:center;"><h1>${escapeHtml(title)}</h1><p>${escapeHtml(className)}</p><hr></div>`;
+        selected.forEach((q, i) => {
+            html += `<div style="margin-bottom:20px;"><strong>Q${i+1}.</strong> ${escapeHtml(q.text)}<br>`;
+            if (q.type === 'match') { html += `<div style="display:flex; gap:20px;"><div>${q.pairs.map(p => p[0]).join('<br>')}</div><div>${q.pairs.map(p => p[1]).join('<br>')}</div></div>`; }
+            else if (q.type === 'fill') { html += `__________`; }
+            else if (q.type === 'truefalse') { html += `(True / False)`; }
+            else if (q.type === 'onesentence') { html += `(Answer in one sentence)`; }
+            else if (q.type === 'oddmanout') { html += `${q.options.map((opt, j) => `${String.fromCharCode(65+j)}. ${escapeHtml(opt)}`).join('<br>')}`; }
+            html += `</div>`;
+        });
+        exportToPDF(html, title);
+    }
+    
+    window.exportMixedAnswerKey = function() {
+        const selected = mixedBank.filter(q => selectedMixedIds.includes(q.id));
+        if (!selected.length) { alert("Select questions first"); return; }
+        const title = document.getElementById("mixedTestTitle").value || "Mixed Test";
+        const className = document.getElementById("mixedClassName").value || "General Class";
+        generateAnswerKey(selected, 'mixed', title, className);
+    }
+    
+    window.generateMixedLink = async function() {
+        if (selectedMixedIds.length === 0) { alert("Select at least one question"); return; }
+        const selected = mixedBank.filter(q => selectedMixedIds.includes(q.id));
+        const title = document.getElementById("mixedTestTitle").value || "Mixed Test";
+        const className = document.getElementById("mixedClassName").value || "General Class";
+        const whatsapp = document.getElementById("mixedWhatsapp").value || "";
+        const fullLink = createTestLink("mixed", title, className, selected, whatsapp);
+        const shortLink = await shortenUrl(fullLink);
+        const shareText = encodeURIComponent(`📝 *${title}* - ${className}\n\nClick here:\n${shortLink}\n\nBest of luck!`);
+        mixedLinkHistory.unshift({ link: shortLink, date: new Date().toLocaleString(), title, className });
+        mixedLinkHistory = mixedLinkHistory.slice(0, 20);
+        localStorage.setItem(STORAGE.mixedHistory, JSON.stringify(mixedLinkHistory));
+        document.getElementById("mixedLinkArea").innerHTML = `
+            <div class="link-box"><div><strong>🔗 Short Link:</strong><br><a href="${shortLink}" target="_blank">${shortLink}</a></div>
+            <div style="margin-top:10px;"><strong>📎 Full Link:</strong><br><a href="${fullLink}" target="_blank">${fullLink}</a></div></div>
+            <div class="share-buttons">
+                <button onclick="navigator.clipboard.writeText('${shortLink}')">📋 Copy Short</button>
+                <button onclick="navigator.clipboard.writeText('${fullLink}')">📋 Copy Full</button>
+                <button onclick="window.open('https://wa.me/?text=${shareText}', '_blank')" style="background:#25D366;">💬 WhatsApp</button>
+                <button onclick="window.location.href='mailto:?subject=Test Link&body=${shareText}'" style="background:#EA4335;">📧 Email</button>
+            </div>`;
+    }
+    
+    // ==================== ACADEMIC PANEL ====================
+    function renderAcademicPanel() {
+        const savedFont = localStorage.getItem("selected_handwritten_font") || "'Caveat', cursive";
+        let fontOptions = '';
+        handwrittenFonts.forEach(f => { fontOptions += `<option value="${f.value}" ${f.value === savedFont ? 'selected' : ''}>${f.name}</option>`; });
+        
+        const container = document.getElementById('academicPanel');
+        container.innerHTML = `
+            <div class="card"><div class="card-header">📚 Academic Bank (1-4 marks)<div>
+                <button onclick="addAcademicQuestion()">+ Add</button>
+                <button onclick="importAcademicJSON()" style="background:#48bb78;">📂 Import JSON</button>
+                <button onclick="pasteAcademicJSON()" style="background:#ed8936;">📋 Paste JSON</button>
+                <button onclick="exportAcademicJSON()" style="background:#667eea;">💾 Export JSON</button>
+                <button onclick="clearAcademicBank()" class="btn-danger">🗑️ Clear Bank</button>
+            </div></div><div id="academicBankList"></div></div>
+            <div class="card"><div class="card-header">📝 Create Academic Test</div><div class="grid-2"><div>
+                <div class="exam-detail-row"><label>🏫 School:</label><input id="academicSchoolName" value="${escapeHtml(localStorage.getItem("academic_school_name") || "CBSE SCHOOL")}"></div>
+                <div class="exam-detail-row"><label>📚 Class:</label><input id="academicClassHeader" value="${escapeHtml(localStorage.getItem("academic_class_header") || "Class VI")}"></div>
+                <div class="exam-detail-row"><label>Title:</label><input id="academicTestTitle" value="Academic Assessment"></div>
+                <div class="exam-detail-row"><label>Subject:</label><input id="academicSubject" value="Mathematics"></div>
+                <div class="exam-detail-row"><label>Date:</label><input id="academicDate" value="${new Date().toLocaleDateString()}"></div>
+                <div class="exam-detail-row"><label>Duration:</label><input id="academicDuration" value="2 hours"></div>
+                <div class="exam-detail-row"><label>Instructions:</label><textarea id="academicInstructions" rows="2">All questions compulsory. Marks indicated.</textarea></div>
+                <div class="exam-detail-row"><label>Handwritten Font:</label><select id="handwrittenFontSelect">${fontOptions}</select><span class="font-preview" style="font-family:${savedFont};">Sample Text</span></div>
+                <div class="exam-detail-row"><label>Diagrams:</label><input type="checkbox" id="diagramsToggle"></div>
+                <label>📱 Your WhatsApp:</label><input type="text" id="academicWhatsapp" placeholder="e.g., 919876543210">
+                <div style="margin:15px 0;"><strong>📌 Select Questions:</strong></div><div id="academicSelector"></div>
+                <div style="margin-top:10px;"><button onclick="selectAllAcademic()">✅ Select All</button> <button onclick="clearSelectedAcademic()">🗑️ Clear All</button></div>
+                <button onclick="generateAcademicLink()" style="width:100%; margin-top:15px;">🔗 Generate Link</button>
+                <button onclick="exportAcademicPaperPDF()" class="btn-success" style="width:100%; margin-top:10px;">📄 Export Paper PDF</button>
+                <button onclick="exportAcademicAnswerKey()" class="btn-warning" style="width:100%; margin-top:10px;">🔑 Export Answer Key PDF</button>
+            </div><div><div style="font-weight:bold;">📌 Preview</div><div id="academicPreview" style="background:#f8f9fa; border-radius:12px; padding:15px; min-height:150px;"></div><div id="academicLinkArea"></div></div></div></div>`;
+        
+        document.getElementById('academicSchoolName').addEventListener('change', () => { localStorage.setItem("academic_school_name", document.getElementById('academicSchoolName').value); });
+        document.getElementById('academicClassHeader').addEventListener('change', () => { localStorage.setItem("academic_class_header", document.getElementById('academicClassHeader').value); });
+        const fontSelect = document.getElementById('handwrittenFontSelect');
+        fontSelect.addEventListener('change', () => { localStorage.setItem("selected_handwritten_font", fontSelect.value); document.querySelector('.font-preview').style.fontFamily = fontSelect.value; });
+        
+        renderAcademicBankList(); renderAcademicSelector(); updateAcademicPreview();
+    }
+    
+    function renderAcademicBankList() {
+        const container = document.getElementById('academicBankList');
+        if (!academicBank.length) { container.innerHTML = '<div class="warning">No questions. Click "+ Add" or import JSON.</div>'; return; }
+        let html = '';
+        academicBank.forEach((q, idx) => {
+            html += `<div class="question-item"><div><strong>${idx+1}.</strong> ${q.type.toUpperCase()} (${q.marks} marks): ${q.text}</div><div><button onclick="editAcademicQuestion('${q.id}')" style="background:#ed8936;">✏️ Edit</button> <button onclick="deleteAcademicQuestion('${q.id}')" style="background:#e53e3e;">🗑️ Delete</button></div></div>`;
+        });
+        container.innerHTML = html;
+        MathJax.typesetPromise?.();
+    }
+    
+    function renderAcademicSelector() {
+        const container = document.getElementById('academicSelector');
+        if (!academicBank.length) { container.innerHTML = '<div class="warning">No questions available</div>'; return; }
+        let html = '';
+        academicBank.forEach((q, idx) => {
+            const checked = selectedAcademicIds.includes(q.id) ? 'checked' : '';
+            html += `<label style="display:block; margin:8px 0; padding:8px; background:#f8f9fa; border-radius:12px;">
+                        <input type="checkbox" class="academicCheckbox" data-id="${q.id}" ${checked} style="margin-right:10px;">
+                        <strong>${idx+1}.</strong> ${q.type.toUpperCase()} (${q.marks}mk): ${q.text.substring(0,60)}
+                    </label>`;
+        });
+        container.innerHTML = html;
+        document.querySelectorAll('.academicCheckbox').forEach(cb => { cb.onclick = () => toggleSelectAcademic(cb.getAttribute('data-id')); });
+        MathJax.typesetPromise?.();
+    }
+    
+    function updateAcademicPreview() {
+        const selected = academicBank.filter(q => selectedAcademicIds.includes(q.id));
+        const total = selected.reduce((s, q) => s + q.marks, 0);
+        const preview = document.getElementById('academicPreview');
+        if (!selected.length) { preview.innerHTML = '<em>No questions selected</em>'; return; }
+        let html = `<ul style="margin-left:20px;">`;
+        selected.forEach((q, i) => { html += `<li><strong>${i+1}.</strong> ${q.text.substring(0,70)} <span class="marks-badge">${q.marks}</span></li>`; });
+        html += `</ul><div class="warning">✅ Total: ${selected.length} questions | Total Marks: ${total}</div>`;
+        preview.innerHTML = html;
+    }
+    
+    function toggleSelectAcademic(id) {
+        if (selectedAcademicIds.includes(id)) { selectedAcademicIds = selectedAcademicIds.filter(s => s != id); }
+        else { selectedAcademicIds.push(id); }
+        updateAcademicPreview(); renderAcademicSelector();
+    }
+    
+    window.selectAllAcademic = function() { selectedAcademicIds = academicBank.map(q => q.id); updateAcademicPreview(); renderAcademicSelector(); }
+    window.clearSelectedAcademic = function() { selectedAcademicIds = []; updateAcademicPreview(); renderAcademicSelector(); }
+    
+    window.addAcademicQuestion = function() {
+        const type = prompt("Type: mcq, fill, truefalse, match, oddmanout, onesentence, short");
+        if (!type) return;
+        let q = { id: uid(), type: type, marks: 2 };
+        q.text = prompt("Question text (use LaTeX like \\( \\sqrt{2} \\)):");
+        if (!q.text) return;
+        q.marks = parseInt(prompt("Marks (1-4):", 2));
+        
+        if (type === 'mcq') {
+            let opts = [];
+            for (let i = 0; i < 4; i++) opts.push(prompt(`Option ${String.fromCharCode(65+i)}:`));
+            let correct = parseInt(prompt("Correct index:"));
+            q.options = opts; q.correct = correct;
+        } else if (type === 'fill') {
+            q.correct = prompt("Correct answer:").split(',');
+        } else if (type === 'truefalse') {
+            q.correct = prompt("true/false:") === 'true';
+        } else if (type === 'match') {
+            let n = parseInt(prompt("Number of pairs:"));
+            let pairs = [];
+            for (let i = 0; i < n; i++) pairs.push([prompt(`Left ${i+1}:`), prompt(`Right ${i+1}:`)]);
+            let correct = {};
+            for (let i = 0; i < n; i++) correct[i] = String.fromCharCode(65+i);
+            q.pairs = pairs; q.correct = correct;
+        } else if (type === 'oddmanout') {
+            let opts = [];
+            for (let i = 0; i < 4; i++) opts.push(prompt(`Option ${String.fromCharCode(65+i)}:`));
+            let correct = parseInt(prompt("Odd index:"));
+            q.options = opts; q.correct = correct;
+        } else if (type === 'onesentence') {
+            q.correct = prompt("Model answer:");
+        } else if (type === 'short') {
+            q.correct = prompt("Expected answer:");
+        }
+        academicBank.push(q);
+        saveAllBanks(); renderAcademicPanel();
+    }
+    
+    window.deleteAcademicQuestion = function(id) {
+        if (confirm("Delete this question?")) { academicBank = academicBank.filter(q => q.id != id); selectedAcademicIds = selectedAcademicIds.filter(sid => sid != id); saveAllBanks(); renderAcademicPanel(); }
+    }
+    
+    window.editAcademicQuestion = function(id) {
+        const q = academicBank.find(q => q.id == id);
+        if (!q) return;
+        let newText = prompt("Question text:", q.text);
+        if (newText) q.text = newText;
+        let newMarks = parseInt(prompt("Marks (1-4):", q.marks));
+        if (!isNaN(newMarks)) q.marks = newMarks;
+        saveAllBanks(); renderAcademicPanel();
+    }
+    
+    window.importAcademicJSON = function() {
+        const input = document.createElement('input'); input.type = 'file'; input.accept = '.json';
+        input.onchange = (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                try {
+                    const imported = JSON.parse(ev.target.result);
+                    if (Array.isArray(imported)) {
+                        for (let item of imported) { item.id = uid(); academicBank.push(item); }
+                        saveAllBanks(); renderAcademicPanel();
+                        alert(`✅ Imported ${imported.length} questions!`);
+                    } else alert("Invalid JSON: Root must be an array");
+                } catch(err) { alert("Invalid JSON file"); }
+            };
+            reader.readAsText(file);
+        };
+        input.click();
+    }
+    
+    window.pasteAcademicJSON = function() {
+        const jsonText = prompt("Paste your JSON array here:");
+        if (!jsonText) return;
+        try {
+            const imported = JSON.parse(jsonText);
+            if (Array.isArray(imported)) {
+                for (let item of imported) { item.id = uid(); academicBank.push(item); }
+                saveAllBanks(); renderAcademicPanel();
+                alert(`✅ Pasted ${imported.length} questions!`);
+            } else alert("Invalid JSON: Root must be an array");
+        } catch(err) { alert("Invalid JSON format"); }
+    }
+    
+    window.exportAcademicJSON = function() {
+        const jsonStr = JSON.stringify(academicBank, null, 2);
+        const blob = new Blob([jsonStr], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = "academic_questions.json"; a.click(); URL.revokeObjectURL(url);
+    }
+    
+    window.clearAcademicBank = function() {
+        if (confirm("Delete ALL academic questions?")) { academicBank = []; selectedAcademicIds = []; saveAllBanks(); renderAcademicPanel(); }
+    }
+    
+    function parseDiagrams(text, enabled) {
+        if (!enabled) return escapeHtml(text);
+        return escapeHtml(text).replace(/\[diagram:(.*?)\]/g, '<img src="$1" class="diagram-img" alt="Diagram" style="max-width:100%; margin:10px 0;">');
+    }
+    
+    window.exportAcademicPaperPDF = function() {
+        const selected = academicBank.filter(q => selectedAcademicIds.includes(q.id));
+        if (!selected.length) { alert("Select questions first"); return; }
+        const school = document.getElementById('academicSchoolName').value || "CBSE SCHOOL";
+        const className = document.getElementById('academicClassHeader').value || "Class";
+        const title = document.getElementById('academicTestTitle').value || "Academic Test";
+        const subject = document.getElementById('academicSubject').value || "Mathematics";
+        const date = document.getElementById('academicDate').value || "";
+        const duration = document.getElementById('academicDuration').value || "";
+        const instructions = document.getElementById('academicInstructions').value || "";
+        const handwritten = document.getElementById('handwrittenFontSelect').value;
+        const diagrams = document.getElementById('diagramsToggle').checked;
+        const totalMarks = selected.reduce((s, q) => s + q.marks, 0);
+        
+        let html = `<div style="font-family: ${handwritten};"><div style="text-align:center;"><h2>${escapeHtml(school)}</h2><h1>${escapeHtml(title)}</h1><p><strong>${escapeHtml(className)}</strong> | ${escapeHtml(subject)}</p><p>Date: ${escapeHtml(date)} | Duration: ${escapeHtml(duration)}</p><p><strong>Maximum Marks: ${totalMarks}</strong></p><hr><div style="text-align:left;"><strong>Instructions:</strong> ${escapeHtml(instructions)}</div><hr></div>`;
+        let qno = 1;
+        for (let q of selected) {
+            let qText = parseDiagrams(q.text, diagrams);
+            html += `<div style="margin-bottom:20px;"><div><strong>Q${qno}.</strong> ${qText} <span style="font-size:0.8rem;">[${q.marks}]</span></div>`;
+            if (q.type === 'mcq') { html += `<div style="margin-left:20px;">${q.options.map((opt, i) => `${String.fromCharCode(65+i)}. ${escapeHtml(opt)}`).join('<br>')}</div>`; }
+            else if (q.type === 'fill') { html += `<div style="margin-left:20px;">__________</div>`; }
+            else if (q.type === 'match') { html += `<div style="display:flex; gap:30px; margin-left:20px;"><div>${q.pairs.map(p => p[0]).join('<br>')}</div><div>${q.pairs.map(p => p[1]).join('<br>')}</div></div>`; }
+            else if (q.type === 'oddmanout') { html += `<div style="margin-left:20px;">${q.options.map((opt, i) => `${String.fromCharCode(65+i)}. ${escapeHtml(opt)}`).join('<br>')}</div>`; }
+            else if (q.type === 'truefalse') { html += `<div style="margin-left:20px;">(True / False)</div>`; }
+            else if (q.type === 'onesentence') { html += `<div style="margin-left:20px;">(Answer in one sentence)</div>`; }
+            else if (q.type === 'short') { html += `<div style="margin-left:20px;">(Write your answer)</div>`; }
+            html += `</div>`;
+            qno++;
+        }
+        html += `<div style="margin-top:40px; text-align:center;">*** End of Question Paper ***</div></div>`;
+        exportToPDF(html, title);
+    }
+    
+    window.exportAcademicAnswerKey = function() {
+        const selected = academicBank.filter(q => selectedAcademicIds.includes(q.id));
+        if (!selected.length) { alert("Select questions first"); return; }
+        const title = document.getElementById('academicTestTitle').value || "Academic Test";
+        const className = document.getElementById('academicClassHeader').value || "Class";
+        const subject = document.getElementById('academicSubject').value || "Mathematics";
+        generateAnswerKey(selected, 'academic', title, className + " | " + subject);
+    }
+    
+    window.generateAcademicLink = async function() {
+        if (selectedAcademicIds.length === 0) { alert("Select at least one question"); return; }
+        const selected = academicBank.filter(q => selectedAcademicIds.includes(q.id));
+        const title = document.getElementById("academicTestTitle").value || "Academic Test";
+        const className = document.getElementById("academicClassHeader").value || "General Class";
+        const whatsapp = document.getElementById("academicWhatsapp").value || "";
+        const fullLink = createTestLink("academic", title, className, selected, whatsapp);
+        const shortLink = await shortenUrl(fullLink);
+        const shareText = encodeURIComponent(`📝 *${title}* - ${className}\n\nClick here:\n${shortLink}\n\nBest of luck!`);
+        academicLinkHistory.unshift({ link: shortLink, date: new Date().toLocaleString(), title, className });
+        academicLinkHistory = academicLinkHistory.slice(0, 20);
+        localStorage.setItem(STORAGE.academicHistory, JSON.stringify(academicLinkHistory));
+        document.getElementById("academicLinkArea").innerHTML = `
+            <div class="link-box"><div><strong>🔗 Short Link:</strong><br><a href="${shortLink}" target="_blank">${shortLink}</a></div>
+            <div style="margin-top:10px;"><strong>📎 Full Link:</strong><br><a href="${fullLink}" target="_blank">${fullLink}</a></div></div>
+            <div class="share-buttons">
+                <button onclick="navigator.clipboard.writeText('${shortLink}')">📋 Copy Short</button>
+                <button onclick="navigator.clipboard.writeText('${fullLink}')">📋 Copy Full</button>
+                <button onclick="window.open('https://wa.me/?text=${shareText}', '_blank')" style="background:#25D366;">💬 WhatsApp</button>
+                <button onclick="window.location.href='mailto:?subject=Test Link&body=${shareText}'" style="background:#EA4335;">📧 Email</button>
+            </div>`;
+    }
+    
+    // ==================== CHECK FOR TEST LINK ====================
+    const urlParams = new URLSearchParams(window.location.search);
+    const encoded = urlParams.get('test');
+    if (encoded) {
+        try { const decoded = decodeURIComponent(encoded); const data = JSON.parse(atob(decoded)); renderStudentTest(data); }
+        catch(e) { showLogin(); }
+    } else { showLogin(); }
+</script>
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("./sw.js")
+    .then(() => console.log("Service Worker Registered"))
+    .catch(err => console.log("SW Error:", err));
+}
+</script>
+</body>
+</html>
